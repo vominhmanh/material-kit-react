@@ -130,8 +130,8 @@ export default function Page(): React.JSX.Element {
           </Stack>
         </Stack>
         <div>
-          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
-            Add
+          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} href="customers/create" variant="contained">
+            Thêm
           </Button>
         </div>
       </Stack>

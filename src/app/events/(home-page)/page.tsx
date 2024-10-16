@@ -1,17 +1,8 @@
 import * as React from 'react';
 import type {Metadata} from 'next';
 import Grid from '@mui/material/Unstable_Grid2';
-import dayjs from 'dayjs';
 
 import {config} from '@/config';
-// import {Budget} from '@/components/events/overview/budget';
-import {LatestOrders} from '@/components/events/overview/latest-orders';
-import {LatestProducts} from '@/components/events/overview/latest-products';
-import {Sales} from '@/components/events/overview/sales';
-import {TasksProgress} from '@/components/events/overview/tasks-progress';
-import {TotalCustomers} from '@/components/events/overview/total-customers';
-import {TotalProfit} from '@/components/events/overview/total-profit';
-import {Traffic} from '@/components/events/overview/traffic';
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -22,9 +13,7 @@ import {Plus as PlusIcon} from "@phosphor-icons/react/dist/ssr/Plus";
 import Card from "@mui/material/Card";
 import {CardMedia} from "@mui/material";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Divider from "@mui/material/Divider";
-import {Clock as ClockIcon} from "@phosphor-icons/react/dist/ssr/Clock";
 import { EventsFilters } from '@/components/events/event/events-filters';
 
 export const metadata = {title: `Overview | Dashboard | ${config.site.name}`} satisfies Metadata;
@@ -34,7 +23,7 @@ export default function Page(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3}>
         <Stack spacing={1} sx={{flex: '1 1 auto'}}>
-          <Typography variant="h4">Events</Typography>
+          <Typography variant="h4">Sự kiện</Typography>
           <Stack direction="row" spacing={1} sx={{alignItems: 'center'}}>
             <Button color="inherit" startIcon={<UploadIcon fontSize="var(--icon-fontSize-md)"/>}>
               Import
