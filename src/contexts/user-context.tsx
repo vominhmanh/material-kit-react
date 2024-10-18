@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import type { User } from '@/types/user';
+import { User } from '@/types/auth';
 import { authClient } from '@/lib/auth/client';
 import { logger } from '@/lib/default-logger';
 
@@ -11,6 +11,7 @@ export interface UserContextValue {
   error: string | null;
   isLoading: boolean;
   checkSession?: () => Promise<void>;
+  setUser: (user: User | null) => void;
 }
 
 export const UserContext = React.createContext<UserContextValue | undefined>(undefined);
@@ -30,17 +31,22 @@ export function UserProvider({ children }: UserProviderProps): React.JSX.Element
     try {
       const { data, error } = await authClient.getUser();
 
+      console.log('data, error', data, error);
       if (error) {
         logger.error(error);
         setState((prev) => ({ ...prev, user: null, error: 'Something went wrong', isLoading: false }));
         return;
       }
 
-      setState((prev) => ({ ...prev, user: data ?? null, error: null, isLoading: false }));
+      setState((prev) => ({ ...prev, user: data as User | null, error: null, isLoading: false }));
     } catch (err) {
       logger.error(err);
       setState((prev) => ({ ...prev, user: null, error: 'Something went wrong', isLoading: false }));
     }
+  }, []);
+
+  const setUser = React.useCallback((user: User | null): void => {
+    setState((prev) => ({ ...prev, user }));
   }, []);
 
   React.useEffect(() => {
@@ -51,7 +57,7 @@ export function UserProvider({ children }: UserProviderProps): React.JSX.Element
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Expected
   }, []);
 
-  return <UserContext.Provider value={{ ...state, checkSession }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ ...state, checkSession, setUser }}>{children}</UserContext.Provider>;
 }
 
 export const UserConsumer = UserContext.Consumer;
